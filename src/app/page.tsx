@@ -22,7 +22,15 @@ export default function Home() {
 
   return (
     <OrientationGuard>
-      <main className="flex items-center justify-center min-h-screen bg-black overflow-hidden relative">
+      <main className="flex items-center justify-center min-h-screen overflow-hidden relative bg-hearts-pattern">
+        {process.env.NODE_ENV === "development" && !showValentinesProposal && (
+          <button
+            onClick={handleShowProposal}
+            className="fixed top-4 right-4 z-50 px-3 py-1.5 text-xs font-medium bg-amber-500/90 hover:bg-amber-500 text-black rounded shadow-lg"
+          >
+            Skip to message (dev)
+          </button>
+        )}
         {!showValentinesProposal ? (
           <motion.div
             initial={{ opacity: 1 }}

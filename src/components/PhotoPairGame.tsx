@@ -4,27 +4,20 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-// 18 images
-const images = [
-  "/game-photos/1.avif",
-  "/game-photos/2.avif",
-  "/game-photos/3.avif",
-  "/game-photos/4.avif",
-  "/game-photos/5.avif",
-  "/game-photos/6.avif",
-  "/game-photos/7.avif",
-  "/game-photos/8.avif",
-  "/game-photos/9.avif",
-  "/game-photos/10.avif",
-  "/game-photos/11.avif",
-  "/game-photos/12.avif",
-  "/game-photos/13.avif",
-  "/game-photos/14.avif",
-  "/game-photos/15.avif",
-  "/game-photos/16.avif",
-  "/game-photos/17.avif",
-  "/game-photos/18.avif",
-];
+// Dynamically load all photos from game-photos folder
+const imagesContext = (require as NodeRequire & {
+  context: (dir: string, recurse: boolean, pattern: RegExp) => {
+    keys: () => string[];
+  };
+}).context("../../public/game-photos", false, /\.(avif|jpg|jpeg|png|webp)$/i);
+const images: string[] = imagesContext
+  .keys()
+  .sort((a: string, b: string) => {
+    const numA = parseInt(a.replace(/\D/g, ""), 10) || 0;
+    const numB = parseInt(b.replace(/\D/g, ""), 10) || 0;
+    return numA - numB;
+  })
+  .map((key: string) => "/game-photos/" + key.replace("./", ""));
 
 // Create 18 pairs of images (36 images in total)
 const imagePairs = images.flatMap((image) => [image, image]);
@@ -57,7 +50,12 @@ export default function PhotoPairGame({
   const [selected, setSelected] = useState<number[]>([]);
   const [matched, setMatched] = useState<number[]>([]);
   const [incorrect, setIncorrect] = useState<number[]>([]);
-  const [images] = useState(() => shuffleArray([...imagePairs]));
+  const [images, setImages] = useState<string[]>(imagePairs);
+
+  // Shuffle after mount to avoid hydration mismatch (Math.random differs on server vs client)
+  useEffect(() => {
+    setImages(shuffleArray([...imagePairs]));
+  }, []);
 
   const handleClick = async (index: number) => {
     if (selected.length === 2 || matched.includes(index) || selected.includes(index)) return;
@@ -108,15 +106,15 @@ export default function PhotoPairGame({
         index !== null ? (
           <motion.div
             key={i}
-            className="w-[11vh] h-[11vh] lg:w-20 lg:h-20 relative cursor-pointer"
-            whileHover={{ scale: 1.1 }}
+            className="w-[11vh] h-[11vh] lg:w-20 lg:h-20 relative cursor-pointer [transition:box-shadow_0.2s] hover:drop-shadow-[0_0_12px_rgba(251,207,232,0.6)]"
+            whileHover={{ scale: 1.08 }}
             onClick={() => handleClick(index)}
             style={{ perspective: "1000px" }} // Add perspective for 3D effect
           >
             {/* Back of the card */}
             {!selected.includes(index) && !matched.includes(index) && (
               <motion.div
-                className="w-full h-full bg-gray-300 rounded-sm lg:rounded-md absolute z-10"
+                className="w-full h-full bg-gradient-to-br from-pink-200 to-rose-300 rounded-xl lg:rounded-2xl absolute z-10 flex items-center justify-center shadow-inner border-2 border-pink-100/50"
                 initial={{ rotateY: 0 }}
                 animate={{
                   rotateY:
@@ -126,7 +124,9 @@ export default function PhotoPairGame({
                 }}
                 transition={{ duration: 0.5 }}
                 style={{ backfaceVisibility: "hidden" }}
-              />
+              >
+                <span className="text-2xl lg:text-3xl opacity-60">💕</span>
+              </motion.div>
             )}
 
             {/* Front of the card (image) */}
@@ -142,7 +142,7 @@ export default function PhotoPairGame({
                   src={images[index]}
                   alt={`Imagen ${index + 1}`}
                   fill
-                  className="rounded-sm lg:rounded-md object-cover"
+                  className="rounded-xl lg:rounded-2xl object-cover ring-2 ring-pink-100/30"
                 />
               </motion.div>
             )}
@@ -151,10 +151,10 @@ export default function PhotoPairGame({
             {incorrect.includes(index) && (
               <motion.div
                 className="absolute inset-0"
-                animate={{ scale: [1, 1.1, 1], opacity: [1, 0, 1] }}
-                transition={{ duration: 0.5 }}
+                animate={{ scale: [1, 1.05, 1], opacity: [1, 0.7, 1] }}
+                transition={{ duration: 0.4 }}
               >
-                <div className="w-full h-full bg-red-500 rounded-sm lg:rounded-md"></div>
+                <div className="w-full h-full bg-rose-400/80 rounded-xl lg:rounded-2xl"></div>
               </motion.div>
             )}
           </motion.div>

@@ -1,5 +1,4 @@
 import { Playfair_Display } from "next/font/google";
-import Link from "next/link";
 
 const playfairDisplay = Playfair_Display({
   display: "swap",
@@ -11,23 +10,17 @@ export default function TextFooter() {
     <>
       {/* Left Text */}
       <h1
-        className={`absolute left-10 bottom-5 transform -translate-y-1/2 text-white text-4xl lg:text-5xl font-bold leading-tight ${playfairDisplay.className}`}
+        className={`absolute left-10 bottom-5 transform -translate-y-1/2 text-rose-50 text-4xl lg:text-5xl font-bold leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] ${playfairDisplay.className}`}
       >
-        <span className="text-gray-400">Match</span> <br /> the photo pairs
+        <span className="text-pink-200">Match</span> <br /> the photo pairs
       </h1>
 
       {/* Right Text */}
       <h1
-        className={`absolute right-10 bottom-5 transform -translate-y-1/2 text-white text-4xl lg:text-5xl font-bold leading-tight text-right ${playfairDisplay.className}`}
+        className={`absolute right-10 bottom-5 transform -translate-y-1/2 text-rose-50 text-4xl lg:text-5xl font-bold leading-tight text-right drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] ${playfairDisplay.className}`}
       >
-        to reveal <br /> <span className="text-gray-400">the surprise</span>
+        to reveal <br /> <span className="text-pink-200">the surprise</span>
       </h1>
-
-      {/* Copyright */}
-      <p className="absolute bottom-5 right-5 text-white text-sm opacity-15 hover:opacity-50">
-        © {new Date().getFullYear()}{" "}
-        <Link href="https://visibait.com">visibait.com</Link>
-      </p>
     </>
   );
 }
