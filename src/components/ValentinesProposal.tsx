@@ -163,7 +163,7 @@ export default function ValentinesProposal() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
           >
-            ✨ I have a surprise for you!
+            ✨ I have a surprise for you, my lover!
           </motion.h2>
         )}
         {step === 2 && (
