@@ -106,7 +106,7 @@ export default function PhotoPairGame({
         index !== null ? (
           <motion.div
             key={i}
-            className="w-[11vh] h-[11vh] lg:w-20 lg:h-20 relative cursor-pointer [transition:box-shadow_0.2s] hover:drop-shadow-[0_0_12px_rgba(251,207,232,0.6)]"
+            className="w-[11vh] h-[11vh] lg:w-20 lg:h-20 relative cursor-pointer [transition:box-shadow_0.2s] hover:drop-shadow-[0_0_12px_rgba(253,224,71,0.5)]"
             whileHover={{ scale: 1.08 }}
             onClick={() => handleClick(index)}
             style={{ perspective: "1000px" }} // Add perspective for 3D effect
@@ -114,7 +114,7 @@ export default function PhotoPairGame({
             {/* Back of the card */}
             {!selected.includes(index) && !matched.includes(index) && (
               <motion.div
-                className="w-full h-full bg-gradient-to-br from-pink-200 to-rose-300 rounded-xl lg:rounded-2xl absolute z-10 flex items-center justify-center shadow-inner border-2 border-pink-100/50"
+                className="w-full h-full bg-gradient-to-br from-amber-100 to-rose-200 rounded-xl lg:rounded-2xl absolute z-10 flex items-center justify-center shadow-inner border-2 border-amber-200/50"
                 initial={{ rotateY: 0 }}
                 animate={{
                   rotateY:
@@ -142,7 +142,7 @@ export default function PhotoPairGame({
                   src={images[index]}
                   alt={`Imagen ${index + 1}`}
                   fill
-                  className="rounded-xl lg:rounded-2xl object-cover ring-2 ring-pink-100/30"
+                  className="rounded-xl lg:rounded-2xl object-cover ring-2 ring-amber-200/40"
                 />
               </motion.div>
             )}

@@ -182,20 +182,20 @@ export default function ValentinesProposal() {
             />
             {noMessage && (
               <p
-                className={`mt-3 text-lg text-rose-200 text-center drop-shadow-md ${playfairDisplay.className}`}
+                className={`mt-3 text-lg text-amber-200/90 text-center drop-shadow-md ${playfairDisplay.className}`}
               >
                 {noMessage}
               </p>
             )}
             <div className="flex space-x-4 mt-10">
               <button
-                className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-pink-400 to-rose-500 rounded-2xl hover:from-pink-500 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40"
+                className="px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-amber-400 via-pink-400 to-rose-500 rounded-2xl hover:from-amber-500 hover:via-pink-500 hover:to-rose-600 transform hover:scale-105 transition-all duration-300 shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40"
                 onClick={handleYesClick}
               >
                 Yes, I will! 🥰
               </button>
               <button
-                className="px-6 py-2 text-lg font-semibold text-rose-100 bg-rose-900/50 border border-rose-300/30 rounded-2xl hover:bg-rose-800/50 transform hover:scale-95 transition-all duration-300 shadow-lg"
+                className="px-6 py-2 text-lg font-semibold text-amber-100 bg-rose-900/50 border border-amber-400/30 rounded-2xl hover:bg-rose-800/50 transform hover:scale-95 transition-all duration-300 shadow-lg"
                 style={
                   position
                     ? {
@@ -223,7 +223,7 @@ export default function ValentinesProposal() {
             exit={{ opacity: 0 }}
           >
             Thank you for accepting lablabbb, I love you so muchhhh! 💕
-            <p className="text-lg mt-4 text-pink-200">Yieeeeeee</p>
+            <p className="text-lg mt-4 text-amber-200">Yieeeeeee</p>
             <Image
               src="/hamster_jumping.gif"
               alt="Hamster Feliz"

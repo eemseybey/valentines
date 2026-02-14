@@ -20,10 +20,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Romantic gradient + subtle hearts pattern */
+/* Romantic gradient + subtle hearts pattern (pink + yellow accents) */
 .bg-hearts-pattern {
   background-color: #2d1a24;
   background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23fcd34d' fill-opacity='0.03' d='M30 48c-2-1.5-8-6-14-12-4-4-7-9-7-14 0-5 3-9 7-10 2-1 5-1 7 1 2-2 5-2 7-1 4 1 7 5 7 10 0 5-3 10-7 14-6 6-12 10.5-14 12z'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath fill='%23f9a8d4' fill-opacity='0.04' d='M30 48c-2-1.5-8-6-14-12-4-4-7-9-7-14 0-5 3-9 7-10 2-1 5-1 7 1 2-2 5-2 7-1 4 1 7 5 7 10 0 5-3 10-7 14-6 6-12 10.5-14 12z'/%3E%3C/svg%3E"),
-    linear-gradient(to bottom right, rgb(45 26 36), rgb(40 32 45), rgb(45 26 36));
+    linear-gradient(to bottom right, rgb(45 26 36), rgb(52 40 30), rgb(45 26 36));
 }
