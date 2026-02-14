@@ -10,6 +10,8 @@ export const config = {
   },
   shareCard: {
     headline: "She said yes!",
+    giftReminder:
+      "When we meet, tell me our anniversary date to receive your gift in person!",
   },
   loveLetterLines: [
     "From the moment we met...",

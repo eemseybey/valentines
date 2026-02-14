@@ -123,21 +123,24 @@ export default function ValentinesProposal() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full relative">
       {(step === 2 || step === 3) && <FloatingHearts />}
-      {step === 2 && (
-        <div className="fixed inset-0 grid grid-cols-12 grid-rows-8 gap-px opacity-20 pointer-events-none z-0">
-          {Array.from({ length: 96 }).map((_, index) => (
-            <div key={index} className="relative min-h-0 min-w-0">
-              <Image
-                src={images[index % images.length]}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="8vw"
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      <motion.div
+        className="fixed inset-0 grid grid-cols-12 grid-rows-8 gap-px pointer-events-none z-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.2 }}
+        transition={{ duration: 14, ease: "easeInOut" }}
+      >
+        {Array.from({ length: 96 }).map((_, index) => (
+          <div key={index} className="relative min-h-0 min-w-0">
+            <Image
+              src={images[index % images.length]}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="8vw"
+            />
+          </div>
+        ))}
+      </motion.div>
       <AnimatePresence mode="wait">
         {step === 0 && (
           <motion.h2
@@ -237,6 +240,11 @@ export default function ValentinesProposal() {
             />
             <div className="mt-6">
               <ShareableCard />
+            </div>
+            <div className="mt-6 mx-4 max-w-lg">
+              <p className="text-lg lg:text-xl font-medium text-rose-50 text-center px-6 py-4 rounded-xl bg-rose-900/40 border-2 border-amber-300/40 shadow-lg drop-shadow-md">
+                🎁 {config.shareCard.giftReminder}
+              </p>
             </div>
           </motion.div>
         )}

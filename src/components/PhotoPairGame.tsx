@@ -76,7 +76,9 @@ export default function PhotoPairGame({
         setMatched((prev) => {
           const newMatched = [...prev, firstIndex, index];
           onMatch?.(newMatched.length / 2);
-          playMatchSound?.();
+          if (newMatched.length === imagePairs.length) {
+            playMatchSound?.();
+          }
           return newMatched;
         });
         setSelected([]);
