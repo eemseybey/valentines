@@ -5,13 +5,18 @@ import { motion } from "framer-motion";
 import PhotoPairGame from "../components/PhotoPairGame";
 import ValentinesProposal from "@/components/ValentinesProposal";
 import TextFooter from "@/components/TextFooter";
+import LoveLetterDisplay from "@/components/LoveLetterDisplay";
 import OrientationGuard from "@/components/OrientationGuard";
+import { config } from "@/config/personalization";
+import { useValentinesAudio } from "@/hooks/useValentinesAudio";
 
 const ANIM_DURATION = 2;
 
 export default function Home() {
   const [showValentinesProposal, setShowValentinesProposal] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [revealedLineCount, setRevealedLineCount] = useState(0);
+  const { startMusic, playMatchSound } = useValentinesAudio();
 
   const handleShowProposal = () => {
     setIsTransitioning(true);
@@ -25,7 +30,10 @@ export default function Home() {
       <main className="flex items-center justify-center min-h-screen overflow-hidden relative bg-hearts-pattern">
         {process.env.NODE_ENV === "development" && !showValentinesProposal && (
           <button
-            onClick={handleShowProposal}
+            onClick={() => {
+              startMusic();
+              handleShowProposal();
+            }}
             className="fixed top-4 right-4 z-50 px-3 py-1.5 text-xs font-medium bg-amber-500/90 hover:bg-amber-500 text-black rounded shadow-lg"
           >
             Skip to message (dev)
@@ -38,7 +46,20 @@ export default function Home() {
             transition={{ duration: ANIM_DURATION }}
             className="flex flex-col items-center"
           >
-            <PhotoPairGame handleShowProposal={handleShowProposal} />
+            <LoveLetterDisplay
+              lines={config.loveLetterLines}
+              revealedCount={revealedLineCount}
+            />
+            <PhotoPairGame
+              handleShowProposal={handleShowProposal}
+              onMatch={(pairIndex) =>
+                setRevealedLineCount((prev) =>
+                  Math.max(prev, Math.min(pairIndex, config.loveLetterLines.length))
+                )
+              }
+              onFirstInteraction={startMusic}
+              playMatchSound={playMatchSound}
+            />
             <div className="mt-4 md:mt-0">
               <TextFooter />
             </div>

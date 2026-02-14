@@ -42,10 +42,16 @@ const heartLayout = [
 
 type ValentinesProposalProps = {
   handleShowProposal: () => void;
+  onMatch?: (pairIndex: number) => void;
+  onFirstInteraction?: () => void;
+  playMatchSound?: () => void;
 };
 
 export default function PhotoPairGame({
   handleShowProposal,
+  onMatch,
+  onFirstInteraction,
+  playMatchSound,
 }: ValentinesProposalProps) {
   const [selected, setSelected] = useState<number[]>([]);
   const [matched, setMatched] = useState<number[]>([]);
@@ -58,6 +64,8 @@ export default function PhotoPairGame({
   }, []);
 
   const handleClick = async (index: number) => {
+    onFirstInteraction?.();
+
     if (selected.length === 2 || matched.includes(index) || selected.includes(index)) return;
 
     if (selected.length === 1) {
@@ -65,7 +73,12 @@ export default function PhotoPairGame({
       setSelected((prev) => [...prev, index]);
 
       if (images[firstIndex] === images[index]) {
-        setMatched((prev) => [...prev, firstIndex, index]);
+        setMatched((prev) => {
+          const newMatched = [...prev, firstIndex, index];
+          onMatch?.(newMatched.length / 2);
+          playMatchSound?.();
+          return newMatched;
+        });
         setSelected([]);
       } else {
         await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait 1 second

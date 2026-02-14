@@ -11,12 +11,17 @@ You can see the live demo of the game [here](https://valentines-proposal-visibai
 ## Features ✨
 
 - Interactive memory card game in a heart shape layout
+- Love letter story: each matched pair reveals a line of a romantic message
+- Background music and match sounds (add your own audio files)
 - Beautiful animations and transitions using Framer Motion
 - Customizable with your own photos
 - Romantic proposal screen with:
   - Fireworks animation on acceptance
+  - Floating hearts particle effect
   - Playful "No" button that moves away when hovered
   - Cute hamster GIFs and images
+- Shareable "She said yes!" card (save as image or share)
+- Personalization config for names, messages, and audio
 - Elegant design with Playfair Display font
 - Fully responsive layout
 - Built with Next.js and Tailwind CSS
@@ -59,14 +64,30 @@ yarn dev
 
 ## Customization 🎨
 
+### Personalization Config
+All customizable content (names, love letter, share card, audio paths) is in **`src/config/personalization.ts`**:
+
+- **Names**: Set `proposer` and `recipient` (e.g., "Cam" and "Pea")
+- **Love letter**: Edit the 18 `loveLetterLines` shown as each pair is matched
+- **Share card**: Customize `headline` for the "She said yes!" card
+- **Audio paths**: Point to your audio files in `public/`
+
+### Audio Files
+Add these files to the `public/` folder for full audio support:
+
+- **`background-music.mp3`** – Soft romantic music (plays on first interaction, loops)
+- **`match-sound.mp3`** – Short chime or sound when a pair is matched
+
+Paths are configured in `src/config/personalization.ts`. If files are missing, the app still works without audio. For match sounds, you can use free resources like [Mixkit](https://mixkit.co/free-sound-effects/) or [Freesound](https://freesound.org/).
+
 ### Changing Photos
 - Add your photos to `public/game-photos/`
-- Name them from 1.avif to 36.avif
+- Supports `.avif`, `.jpg`, `.jpeg`, `.png`, `.webp`
 - For best results, use square images of the same size
-- Convert your images to .avif format for better performance
 
 ### Modifying Text
 - Edit proposal messages in `components/ValentinesProposal.tsx`
+- Edit love letter lines in `src/config/personalization.ts`
 - Change game instructions in `components/TextFooter.tsx`
 
 ### Styling
@@ -81,6 +102,7 @@ yarn dev
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Framer Motion](https://www.framer.com/motion/)
 - [Fireworks.js](https://fireworks.js.org/)
+- [html2canvas](https://html2canvas.hertzen.com/) (shareable card)
 
 ## Contributing 🤝
 

@@ -3,6 +3,9 @@ import { Playfair_Display } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import Fireworks from "@fireworks-js/react";
 import Image from "next/image";
+import { config } from "@/config/personalization";
+import FloatingHearts from "./FloatingHearts";
+import ShareableCard from "./ShareableCard";
 
 const playfairDisplay = Playfair_Display({
   display: "swap",
@@ -118,7 +121,23 @@ export default function ValentinesProposal() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full relative">
+      {(step === 2 || step === 3) && <FloatingHearts />}
+      {step === 2 && (
+        <div className="fixed inset-0 grid grid-cols-12 grid-rows-8 gap-px opacity-20 pointer-events-none z-0">
+          {Array.from({ length: 96 }).map((_, index) => (
+            <div key={index} className="relative min-h-0 min-w-0">
+              <Image
+                src={images[index % images.length]}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="8vw"
+              />
+            </div>
+          ))}
+        </div>
+      )}
       <AnimatePresence mode="wait">
         {step === 0 && (
           <motion.h2
@@ -151,27 +170,12 @@ export default function ValentinesProposal() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center relative z-10"
           >
-            {/* Image Grid Background - small repeating tiles */}
-            <div className="absolute inset-0 grid grid-cols-12 grid-rows-8 gap-px opacity-20">
-              {Array.from({ length: 96 }).map((_, index) => (
-                <div key={index} className="relative min-h-0 min-w-0">
-                  <Image
-                    src={images[index % images.length]}
-                    alt=""
-                    fill
-                    className="object-cover"
-                    sizes="8vw"
-                  />
-                </div>
-              ))}
-            </div>
-
             <h2
               className={`text-5xl font-semibold mb-8 text-rose-50 text-center drop-shadow-lg ${playfairDisplay.className}`}
             >
-              💕 Will you be my Valentine? 💕
+              💕 {config.names.recipient}, will you be my Valentine? 💕
             </h2>
             <Image
               src="/sad_hamster.png"
@@ -216,13 +220,13 @@ export default function ValentinesProposal() {
         {step === 3 && (
           <motion.div
             key="step-3"
-            className={`text-4xl font-semibold mb-4 flex flex-col justify-center items-center text-rose-50 text-center drop-shadow-lg ${playfairDisplay.className}`}
+            className={`text-4xl font-semibold mb-4 flex flex-col justify-center items-center text-rose-50 text-center drop-shadow-lg relative z-10 ${playfairDisplay.className}`}
             transition={{ duration: 1 }}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
           >
-            Thank you for accepting lablabbb, I love you so muchhhh! 💕
+            Thank you for accepting, {config.names.recipient}! I love you so much! 💕
             <p className="text-lg mt-4 text-amber-200">Yieeeeeee</p>
             <Image
               src="/hamster_jumping.gif"
@@ -231,6 +235,9 @@ export default function ValentinesProposal() {
               height={200}
               unoptimized
             />
+            <div className="mt-6">
+              <ShareableCard />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
